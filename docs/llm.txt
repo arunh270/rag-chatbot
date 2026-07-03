@@ -1,0 +1,7 @@
+Large Language Models (LLMs) are AI models trained on massive amounts of text data.
+
+They generate human-like text by predicting the next token.
+
+Examples include Claude, GPT-4, Llama, and Mistral.
+
+LLMs can answer questions, summarize documents, generate code, translate languages, and assist in many NLP tasks.

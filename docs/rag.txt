@@ -1,0 +1,7 @@
+Retrieval-Augmented Generation (RAG) improves the accuracy of language models.
+
+Instead of relying only on training data, the system retrieves relevant information from external documents.
+
+The retrieved information is included in the prompt before sending it to the language model.
+
+This reduces hallucinations and enables question answering over private documents.

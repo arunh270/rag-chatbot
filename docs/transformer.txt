@@ -1,0 +1,7 @@
+The Transformer architecture was introduced in the paper "Attention Is All You Need."
+
+Transformers use self-attention to understand relationships between words.
+
+Unlike RNNs, transformers process tokens in parallel, making training much faster.
+
+Modern LLMs such as GPT and Claude are built on the Transformer architecture.

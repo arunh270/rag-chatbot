@@ -2,7 +2,7 @@ import streamlit as st
 from rag import RAGChatbot
 
 st.set_page_config(
-    page_title="RAG Chatbot",
+    page_title="AI PDF Chatbot",
     page_icon="🤖",
     layout="wide"
 )
@@ -26,7 +26,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 # --------------------------
-# Track Current PDF
+# Current PDF
 # --------------------------
 
 if "current_pdf" not in st.session_state:
@@ -37,7 +37,13 @@ if "current_pdf" not in st.session_state:
 # --------------------------
 
 with st.sidebar:
-    st.header("📄 Upload PDF")
+
+    st.header("📄 Upload PDF (Optional)")
+
+    st.write(
+        "Upload a PDF to ask questions about it.\n\n"
+        "If you don't upload one, the chatbot will answer using its general AI knowledge."
+    )
 
     uploaded_pdf = st.file_uploader(
         "Choose a PDF",
@@ -46,7 +52,6 @@ with st.sidebar:
 
     if uploaded_pdf is not None:
 
-        # Process only if it's a NEW PDF
         if st.session_state.current_pdf != uploaded_pdf.name:
 
             with st.spinner("Processing PDF..."):
@@ -55,22 +60,21 @@ with st.sidebar:
 
             st.session_state.current_pdf = uploaded_pdf.name
 
-            # Clear old chat
             st.session_state.messages = []
 
-            st.success(f"✅ {uploaded_pdf.name} loaded successfully!")
+            st.success(f"✅ Loaded: {uploaded_pdf.name}")
 
 # --------------------------
-# Show Current PDF
+# Status
 # --------------------------
 
 if st.session_state.current_pdf:
 
-    st.info(f"📘 Current PDF: {st.session_state.current_pdf}")
+    st.success(f"📘 Using PDF: {st.session_state.current_pdf}")
 
 else:
 
-    st.warning("Please upload a PDF from the sidebar.")
+    st.info("💡 No PDF uploaded. Chatbot is using Groq's general knowledge.")
 
 # --------------------------
 # Display Chat History
@@ -85,11 +89,10 @@ for message in st.session_state.messages:
 # Chat Input
 # --------------------------
 
-question = st.chat_input("Ask anything about the uploaded PDF...")
+question = st.chat_input("Ask me anything...")
 
 if question:
 
-    # User message
     st.session_state.messages.append(
         {
             "role": "user",
@@ -100,7 +103,6 @@ if question:
     with st.chat_message("user"):
         st.write(question)
 
-    # Assistant response
     with st.chat_message("assistant"):
 
         with st.spinner("Thinking..."):
